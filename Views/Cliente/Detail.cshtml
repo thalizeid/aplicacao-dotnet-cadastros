@@ -1,0 +1,119 @@
+@model sistemaDivtech.ViewModels.ClienteCreateViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalhes do Cliente</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .client-details {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .details-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .details-row label {
+            font-weight: bold;
+            text-align: right;
+            margin-right: 20px;
+        }
+        .details-row .text {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .details-row img {
+            max-width: 100px;
+            height: auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group p {
+            margin: 0;
+        }
+        .btn-back {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .image-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .image-container img {
+            max-width: 100px; /* Define o tamanho máximo da imagem */
+            height: auto;
+        }
+        /* Adiciona padding de 10px nas células da tabela */
+        table td {
+            padding: 8px 0 8px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="client-details">
+        <h1>Detalhes do Cliente</h1>
+        <br>
+        <br>
+        <div style="display: flex;">
+            <!-- Primeira coluna: Tabela -->
+            <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                <table style="border-collapse: collapse;">
+                    <tr style="background-color: transparent;">
+                        <td style="text-align: left;">ID Cliente:</td>
+                        <td style="text-align: right;">@Model.ClienteId</td>
+                    </tr>
+                    <tr style="background-color: transparent;">
+                        <td style="text-align: left;">Nome:</td>
+                        <td style="text-align: right;">@Model.ClienteNome</td>
+                    </tr>
+                    <tr style="background-color: transparent;">
+                        <td style="text-align: left;">Fornecedor:</td>
+                        <td style="text-align: right;">@Model.Fornecedor?.FornecedorNome</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Segunda coluna: Imagem ou texto -->
+            <div style="flex: 1; display: flex; justify-content: center; align-items: center;">
+                @if (Model.FotoBytes != null && Model.FotoBytes.Length > 0)
+                {
+                    <div class="image-container">
+                        <img src="@Url.Action("GetImage", "Cliente", new { id = Model.ClienteId })" alt="Foto do Cliente" />
+                    </div>
+                }
+                else
+                {
+                    <p style="text-align: center;">Sem Imagem</p>
+                }
+            </div>
+        </div>
+
+        <div class="btn-back">
+            <a href="@Url.Action("Index", "Cliente")" class="btn btn-dark">Voltar</a>
+        </div>
+    </div>
+</body>
+</html>

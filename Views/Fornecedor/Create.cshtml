@@ -1,0 +1,115 @@
+@model sistemaDivtech.ViewModels.FornecedorCreateViewModel
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Adicionar Fornecedor</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .client-details {
+            max-width: 950px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+
+        .form-group {
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="client-details">
+        <!-- Container para centralizar o conteúdo -->
+        <div class="container">
+            <!-- Linha para centralizar o conteúdo do formulário -->
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h3 class="text-center">Adicionar Fornecedor</h3>
+                    <hr />
+                    <form asp-action="Create" asp-controller="Fornecedor" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="FornecedorNome" class="control-label"></label>
+                            <input asp-for="FornecedorNome" placeholder="Insira o nome do fornecedor"
+                                class="form-control" />
+                            <span asp-validation-for="FornecedorNome" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Cnpj" class="control-label"></label>
+                            <input asp-for="Cnpj" placeholder="Insira o CNPJ" class="form-control" />
+                            <span asp-validation-for="Cnpj" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Cep" class="control-label"></label>
+                            <input asp-for="Cep" placeholder="Insira o CEP" id="cep" class="form-control" />
+                            <span asp-validation-for="Cep" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Endereco" class="control-label"></label>
+                            <input asp-for="Endereco" placeholder="Insira o endereço" id="endereco"
+                                class="form-control" />
+                            <span asp-validation-for="Endereco" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="SegmentoSelecionado" class="control-label"></label>
+                            <select asp-for="SegmentoSelecionado" asp-items="Model.Segmento" class="form-control">
+                                <option value="">Selecione um segmento</option>
+                            </select>
+                            <span asp-validation-for="SegmentoSelecionado" class="text-danger"></span>
+                        </div>
+
+                        <br />
+                        <div class="form-group row">
+                            <div class="col text-center">
+                                <input type="submit" value="Cadastrar" class="btn btn-dark" />
+                            </div>
+                            <div class="col text-center">
+                                <a asp-action="Index" class="btn btn-outline-dark">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+<!-- JS para API viaCep -->
+
+<script>
+    document.getElementById('cep').addEventListener('blur', function () {
+        var cep = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (cep.length === 8) {
+            fetch(`https://viacep.com.br/ws/${cep}/json/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && !data.erro) {
+                        document.getElementById('endereco').value = data.logradouro;
+                    } else {
+                        alert('CEP não encontrado.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao consultar o CEP:', error);
+                });
+        } else {
+            alert('CEP inválido.');
+        }
+    });
+</script>

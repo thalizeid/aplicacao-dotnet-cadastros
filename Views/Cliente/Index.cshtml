@@ -1,0 +1,78 @@
+@model IEnumerable<sistemaDivtech.ViewModels.ClienteCreateViewModel>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Clientes</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .client-details {
+            max-width: 1000px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="client-details">
+
+    <h1>Lista de Clientes</h1>
+    @if (!string.IsNullOrEmpty((string)TempData["mensagemSucesso"]))
+    {
+        <div class="alert alert-warning" role="alert">@TempData["mensagemSucesso"]</div>
+    }
+
+    <div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID Cliente</th>
+                <th>Nome</th>
+                <th>Fornecedor</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model)
+            {
+                <tr>
+                    <td>@cliente.ClienteId</td>
+                    <td>@cliente.ClienteNome</td>
+                    <td>@cliente.Fornecedor?.FornecedorNome</td>
+                    <td>
+                        <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@cliente.ClienteId">Editar</a> |
+                        <a asp-controller="Cliente" asp-action="Detail" asp-route-id="@cliente.ClienteId">Consultar</a> 
+                        <!--<a asp-controller="Cliente" asp-action="Delete" asp-route-id="@cliente.ClienteId">Excluir</a>-->
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+        <a asp-action="Create" asp-controller="Cliente" class="btn btn-dark">+ Novo Cliente</a>
+
+    </div>
+    </div>
+</body>
+</html>

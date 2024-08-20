@@ -1,0 +1,101 @@
+@model sistemaDivtech.ViewModels.ClienteCreateViewModel
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Adicionar Clientes</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .client-details {
+            max-width: 850px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="client-details">
+
+        <!-- div centralizar o conteúdo -->
+        <div class="container">
+            <!-- Linha para centralizar o conteúdo do formulário -->
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h3 class="text-center">Adicionar Cliente</h3>
+                    <hr />
+                    <form asp-action="Create" asp-controller="Cliente" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                        <div class="form-group">
+                            <label asp-for="ClienteNome" class="control-label"></label>
+                            <input asp-for="ClienteNome" placeholder="Insira o nome do cliente" class="form-control" />
+                            <span asp-validation-for="ClienteNome" class="text-danger"></span>
+                            <br>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Foto" class="control-label"></label>
+                            <input asp-for="Foto" type="file" class="form-control" />
+                            <span asp-validation-for="Foto" class="text-danger"></span>
+                            <br>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="FornecedorId" class="control-label"></label>
+                            <select asp-for="FornecedorId" asp-items="ViewBag.Fornecedores" class="form-control">
+                                <option value="">Selecione um fornecedor</option>
+                            </select>
+                            <span asp-validation-for="FornecedorId" class="text-danger"></span>
+                            <br>
+                        </div>
+
+                        <br />
+                        <div class="form-group row">
+                            <div class="col text-center">
+                                <input type="submit" value="Cadastrar" class="btn btn-dark" />
+                            </div>
+                            <div class="col text-center">
+                                <a asp-action="Index" class="btn btn-outline-dark">Cancelar</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<!-- JS para validar se o arquivo é PNG -->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.querySelector('form');
+        var fileInput = document.querySelector('input[type="file"]');
+
+        form.addEventListener('submit', function (e) {
+            var file = fileInput.files[0];
+
+            if (file) {
+                var allowedExtensions = ['.png'];
+                var fileExtension = file.name.split('.').pop().toLowerCase();
+
+                if (!allowedExtensions.includes('.' + fileExtension)) {
+                    alert('Apenas arquivos PNG são permitidos.');
+                    e.preventDefault(); // aqui impede o envio do form.
+                }
+            }
+        });
+    });
+</script>
