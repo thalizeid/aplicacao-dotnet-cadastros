@@ -1,4 +1,6 @@
-<h1 align="center">dotnetproject</h1>
+<img alt="Static Badge" src="https://img.shields.io/badge/STATUS-FINALIZADO-GREEN">
+
+<h1 align="center">Aplicação Web para cadastro de clientes e fornecedores</h1>
 
 <p align="center">
     Pequeno projeto desenvolvido em .NET MVC, arquitetura MVVM.<br>
