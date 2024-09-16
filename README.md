@@ -1,6 +1,6 @@
 <img alt="Static Badge" src="https://img.shields.io/badge/STATUS-FINALIZADO-GREEN">
 
-<h1 align="center">Aplicação Web para cadastro de clientes e fornecedores</h1>
+<h1 align="center">Aplicação Web para Cadastro de Clientes e Fornecedores</h1>
 
 <p align="center">
     Pequeno projeto desenvolvido em .NET MVC, arquitetura MVVM.<br>
